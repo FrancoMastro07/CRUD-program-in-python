@@ -2,30 +2,47 @@ from tkinter import *
 from tkinter import messagebox
 import sqlite3
 
-#----------------------database-connect----------------------------------------------
+#----------------------database-code----------------------------------------------
 
-def connect():
+def connection():	
 
 	connection=sqlite3.connect("CRUD")
 	slider=connection.cursor()
-	slider.execute(""" 
+	
+	try:
 
-	CREATE TABLE USERSDATA (
+		slider.execute(""" 
 
-		ID INTEGER PRIMARY KEY AUTOINCREMENT, 
-		NAME VARCHAR(50),
-		PASSWORD VARCHAR(50),
-		SURNAME VARCHAR(10),
-		ADDRESS VARCHAR(50),
-		COMMENTS VARCHAR(100))
+		CREATE TABLE USERSDATA (
 
-		""")
+			ID INTEGER PRIMARY KEY AUTOINCREMENT, 
+			NAME VARCHAR(50),
+			PASSWORD VARCHAR(50),
+			SURNAME VARCHAR(10),
+			ADDRESS VARCHAR(50),
+			COMMENTS VARCHAR(100))
+
+			""")
+
+		message_box=messagebox.showinfo("CRUD", "The database was succesfully created")
+
+
+	except:
+	
+		messagebox.showwarning("CRUD", "A database has already been created")	
 
 	connection.close()
 
-	messagebox.showinfo("CRUD", "The database was succesfully created")
+	
+def quit():
 
+	quit_value=messagebox.askokcancel("Quit", "Do you want to quit?")
 
+	if quit_value==True:
+
+		root.destroy()
+
+#--------------root----------------------------------------------
 
 root=Tk()
 
@@ -42,8 +59,8 @@ root.config(menu=bar_menu, width=300, height=300)
 #--------------menu----------------------------------------------#
 
 menu_BBDD=Menu(bar_menu, tearoff=0)
-menu_BBDD.add_command(label="Connect", command=connect)
-menu_BBDD.add_command(label="Quit")
+menu_BBDD.add_command(label="Connect", command=connection)
+menu_BBDD.add_command(label="Quit", command=quit)
 bar_menu.add_cascade(label="BBDD", menu=menu_BBDD)
 
 menu_delete=Menu(bar_menu, tearoff=0)
@@ -135,5 +152,6 @@ button_update.pack(side="right", padx=15, pady=15)
 #----------------end---------------------------------------------------------------#
 
 root.mainloop()
+
 
 
