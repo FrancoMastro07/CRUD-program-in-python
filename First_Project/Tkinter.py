@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import sqlite3
 
-#----------------------database-code----------------------------------------------
+#----------------------database-code----------------------------------------------#
 
 def connection():	
 
@@ -24,7 +24,7 @@ def connection():
 
 			""")
 
-		message_box=messagebox.showinfo("CRUD", "The database was succesfully created")
+		messagebox.showinfo("CRUD", "The database was succesfully created")
 
 
 	except:
@@ -42,7 +42,18 @@ def quit():
 
 		root.destroy()
 
-#--------------root----------------------------------------------
+def delete_fields():
+
+	if True:
+
+		Id.set("")
+		Name.set("")
+		Password.set("") 
+		Surname.set("")
+		Address.set("")
+		comments_text.delete("1.0", END)
+
+#--------------root----------------------------------------------#
 
 root=Tk()
 
@@ -64,7 +75,7 @@ menu_BBDD.add_command(label="Quit", command=quit)
 bar_menu.add_cascade(label="BBDD", menu=menu_BBDD)
 
 menu_delete=Menu(bar_menu, tearoff=0)
-menu_delete.add_command(label="Delete fields")
+menu_delete.add_command(label="Delete fields", command=delete_fields)
 bar_menu.add_cascade(label="Delete", menu=menu_delete)
 
 menu_CRUD=Menu(bar_menu, tearoff=0)
@@ -87,23 +98,28 @@ myframe.config()
 
 #--------entry-and-scrollbar------------------------------------------#
 
-id_text=Entry(myframe)
+Id=StringVar()
+id_text=Entry(myframe, textvariable=Id)
 id_text.grid(row=0, column=1)
 id_text.config(bg="#A9EBBB", justify="center")
 
-name_text=Entry(myframe)
+Name=StringVar()
+name_text=Entry(myframe, textvariable=Name)
 name_text.grid(row=1, column=1)
 name_text.config(bg="#A9EBBB", justify="center")
 
-password_text=Entry(myframe)
+Password=StringVar()
+password_text=Entry(myframe, textvariable=Password)
 password_text.grid(row=2, column=1)
 password_text.config(bg="#A9EBBB", justify="center", show="*")
 
-surname_text=Entry(myframe)
+Surname=StringVar()
+surname_text=Entry(myframe, textvariable=Surname)
 surname_text.grid(row=3, column=1)
 surname_text.config(bg="#A9EBBB", justify="center")
 
-address_text=Entry(myframe)
+Address=StringVar()
+address_text=Entry(myframe, textvariable=Address)
 address_text.grid(row=4, column=1)
 address_text.config(bg="#A9EBBB", justify="center")
 
