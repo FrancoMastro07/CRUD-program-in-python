@@ -4,6 +4,7 @@ import sqlite3
 
 #----------------------database-code----------------------------------------------#
 
+
 def connection():	
 
 	connection=sqlite3.connect("CRUD")
@@ -24,14 +25,13 @@ def connection():
 
 			""")
 
-		messagebox.showinfo("CRUD", "The database was succesfully created")
+		messagebox.showinfo("Connect a database", "The database was succesfully created")
 
 
 	except:
 	
-		messagebox.showwarning("CRUD", "A database has already been created")	
+		messagebox.showwarning("Connect a database", "A database has already been created")	
 
-	connection.close()
 
 	
 def quit():
@@ -52,6 +52,14 @@ def delete_fields():
 		Surname.set("")
 		Address.set("")
 		comments_text.delete("1.0", END)
+
+def create():
+
+	connection=sqlite3.connect("CRUD")
+	slider=connection.cursor()
+	slider.execute("INSERT INTO USERSDATA VALUES (NULL, '" + Name.get() + "','" + Password.get() + "','" + Surname.get() + "','" + Address.get() + "','" + comments_text.get("1.0", END) + "')")
+	connection.commit()
+	messagebox.showinfo("Create a table", "A table was succesfully created")
 
 #--------------root----------------------------------------------#
 
@@ -79,7 +87,7 @@ menu_delete.add_command(label="Delete fields", command=delete_fields)
 bar_menu.add_cascade(label="Delete", menu=menu_delete)
 
 menu_CRUD=Menu(bar_menu, tearoff=0)
-menu_CRUD.add_command(label="Create")
+menu_CRUD.add_command(label="Create", command=create)
 menu_CRUD.add_command(label="Read")
 menu_CRUD.add_command(label="Update")
 menu_CRUD.add_command(label="Delete")
@@ -153,7 +161,7 @@ comments_label.grid(row=5, column=0, sticky="s", padx=30 , pady=30)
 
 #------------button------------------------------------------------------#
 
-button_create=Button(root, text="Create")
+button_create=Button(root, text="Create", command=create)
 button_create.pack(side="left", padx=15, pady=15)
 
 button_read=Button(root, text="Read")
