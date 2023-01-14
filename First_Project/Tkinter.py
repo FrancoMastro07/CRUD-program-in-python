@@ -31,8 +31,6 @@ def connection():
 	except:
 	
 		messagebox.showwarning("Connect a database", "A database has already been created")	
-
-
 	
 def quit():
 
@@ -61,6 +59,25 @@ def create():
 	connection.commit()
 	messagebox.showinfo("Create a table", "A table was succesfully created")
 
+def read():
+
+	connection=sqlite3.connect("CRUD")
+	slider=connection.cursor()
+	slider.execute("SELECT * FROM USERSDATA WHERE ID=" + Id.get())
+	information=slider.fetchall()
+
+	for info in information:
+
+		Id.set(info[0])
+		Name.set(info[1])
+		Password.set(info[2])
+		Surname.set(info[3])
+		Address.set(info[4])
+		comments_text.insert("1.0", info[5])
+
+	connection.commit()
+	messagebox.showinfo("Read a table", "The table was succesfully read")
+
 #--------------root----------------------------------------------#
 
 root=Tk()
@@ -88,7 +105,7 @@ bar_menu.add_cascade(label="Delete", menu=menu_delete)
 
 menu_CRUD=Menu(bar_menu, tearoff=0)
 menu_CRUD.add_command(label="Create", command=create)
-menu_CRUD.add_command(label="Read")
+menu_CRUD.add_command(label="Read", command=read)
 menu_CRUD.add_command(label="Update")
 menu_CRUD.add_command(label="Delete")
 bar_menu.add_cascade(label="CRUD", menu=menu_CRUD)
@@ -164,7 +181,7 @@ comments_label.grid(row=5, column=0, sticky="s", padx=30 , pady=30)
 button_create=Button(root, text="Create", command=create)
 button_create.pack(side="left", padx=15, pady=15)
 
-button_read=Button(root, text="Read")
+button_read=Button(root, text="Read", command=read)
 button_read.pack(side="left", padx=15, pady=15)
 
 button_delete=Button(root, text="Delete")
