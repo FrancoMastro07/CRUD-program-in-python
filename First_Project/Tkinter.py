@@ -89,6 +89,18 @@ def update():
 	connection.commit()
 	messagebox.showinfo("Update", "The update was succesfully done")
 
+def delete():
+
+	connection=sqlite3.connect("CRUD")
+	slider=connection.cursor()
+
+	slider.execute("DELETE FROM USERSDATA WHERE ID=" + Id.get())
+	connection.commit()
+	delete_info=messagebox.askokcancel("Delete information", "Do you want to delete it?")
+
+	if delete_info==True:
+
+		messagebox.showinfo("Delete information", "The information was succesfully deleted")
 
 #--------------root----------------------------------------------#
 
@@ -119,7 +131,7 @@ menu_CRUD=Menu(bar_menu, tearoff=0)
 menu_CRUD.add_command(label="Create", command=create)
 menu_CRUD.add_command(label="Read", command=read)
 menu_CRUD.add_command(label="Update", command=update)
-menu_CRUD.add_command(label="Delete")
+menu_CRUD.add_command(label="Delete", command=delete)
 bar_menu.add_cascade(label="CRUD", menu=menu_CRUD)
 
 menu_help=Menu(bar_menu, tearoff=0)
@@ -196,7 +208,7 @@ button_create.pack(side="left", padx=15, pady=15)
 button_read=Button(root, text="Read", command=read)
 button_read.pack(side="left", padx=15, pady=15)
 
-button_delete=Button(root, text="Delete")
+button_delete=Button(root, text="Delete", command=delete)
 button_delete.pack(side="right", padx=15, pady=15)
 
 button_update=Button(root, text="Update", command=update)
