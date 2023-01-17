@@ -78,6 +78,18 @@ def read():
 	connection.commit()
 	messagebox.showinfo("Read a table", "The table was succesfully read")
 
+def update():
+
+	connection=sqlite3.connect("CRUD")
+	slider=connection.cursor()
+	data=Name.get(), Password.get(), Surname.get(), Address.get(), comments_text.get("1.0", END)
+
+	slider.execute("UPDATE USERSDATA SET NAME=?, PASSWORD=?, SURNAME=?, ADDRESS=?, COMMENTS=? " + "WHERE ID=" + Id.get(), (data))
+		
+	connection.commit()
+	messagebox.showinfo("Update", "The update was succesfully done")
+
+
 #--------------root----------------------------------------------#
 
 root=Tk()
@@ -106,7 +118,7 @@ bar_menu.add_cascade(label="Delete", menu=menu_delete)
 menu_CRUD=Menu(bar_menu, tearoff=0)
 menu_CRUD.add_command(label="Create", command=create)
 menu_CRUD.add_command(label="Read", command=read)
-menu_CRUD.add_command(label="Update")
+menu_CRUD.add_command(label="Update", command=update)
 menu_CRUD.add_command(label="Delete")
 bar_menu.add_cascade(label="CRUD", menu=menu_CRUD)
 
@@ -187,7 +199,7 @@ button_read.pack(side="left", padx=15, pady=15)
 button_delete=Button(root, text="Delete")
 button_delete.pack(side="right", padx=15, pady=15)
 
-button_update=Button(root, text="Update")
+button_update=Button(root, text="Update", command=update)
 button_update.pack(side="right", padx=15, pady=15)
 
 #----------------end---------------------------------------------------------------#
