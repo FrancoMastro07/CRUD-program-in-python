@@ -53,54 +53,102 @@ def delete_fields():
 
 def create():
 
-	connection=sqlite3.connect("CRUD")
-	slider=connection.cursor()
-	slider.execute("INSERT INTO USERSDATA VALUES (NULL, '" + Name.get() + "','" + Password.get() + "','" + Surname.get() + "','" + Address.get() + "','" + comments_text.get("1.0", END) + "')")
-	connection.commit()
-	messagebox.showinfo("Create a table", "A table was succesfully created")
+	try:
+		connection=sqlite3.connect("CRUD")
+		slider=connection.cursor()
+		slider.execute("INSERT INTO USERSDATA VALUES (NULL, '" + Name.get() + "','" + Password.get() + "','" + Surname.get() + "','" + Address.get() + "','" + comments_text.get("1.0", END) + "')")
+		connection.commit()
+		messagebox.showinfo("Create a table", "A table was succesfully created")
+
+	except sqlite3.OperationalError as e:
+
+		if "no such table: USERSDATA" in str(e):
+
+			messagebox.showwarning("Error", "There is no database created")
+
+		else:
+
+			messagebox.showwarning("Error", "Unknown error")
 
 def read():
 
-	connection=sqlite3.connect("CRUD")
-	slider=connection.cursor()
-	slider.execute("SELECT * FROM USERSDATA WHERE ID=" + Id.get())
-	information=slider.fetchall()
+	
+	try:
+		connection=sqlite3.connect("CRUD")
+		slider=connection.cursor()
+		slider.execute("SELECT * FROM USERSDATA WHERE ID=" + Id.get())
+		information=slider.fetchall()
 
-	for info in information:
+		for info in information:
 
-		Id.set(info[0])
-		Name.set(info[1])
-		Password.set(info[2])
-		Surname.set(info[3])
-		Address.set(info[4])
-		comments_text.insert("1.0", info[5])
+			Id.set(info[0])
+			Name.set(info[1])
+			Password.set(info[2])
+			Surname.set(info[3])
+			Address.set(info[4])
+			comments_text.insert("1.0", info[5])
 
-	connection.commit()
-	messagebox.showinfo("Read a table", "The table was succesfully read")
+		connection.commit()
+		messagebox.showinfo("Read a table", "The table was succesfully read")
+
+	except sqlite3.OperationalError as e:
+
+		if "incomplete input" in str(e):
+
+			messagebox.showwarning("Error", "There is no database created")
+
+		else:
+
+			messagebox.showwarning("Error", "Unknown error")	
 
 def update():
 
-	connection=sqlite3.connect("CRUD")
-	slider=connection.cursor()
-	data=Name.get(), Password.get(), Surname.get(), Address.get(), comments_text.get("1.0", END)
+	try:
+		connection=sqlite3.connect("CRUD")
+		slider=connection.cursor()
+		data=Name.get(), Password.get(), Surname.get(), Address.get(), comments_text.get("1.0", END)
 
-	slider.execute("UPDATE USERSDATA SET NAME=?, PASSWORD=?, SURNAME=?, ADDRESS=?, COMMENTS=? " + "WHERE ID=" + Id.get(), (data))
+		slider.execute("UPDATE USERSDATA SET NAME=?, PASSWORD=?, SURNAME=?, ADDRESS=?, COMMENTS=? " + "WHERE ID=" + Id.get(), (data))
 		
-	connection.commit()
-	messagebox.showinfo("Update", "The update was succesfully done")
+		connection.commit()
+		messagebox.showinfo("Update", "The update was succesfully done")
+
+	except sqlite3.OperationalError as e:
+
+		if "incomplete input" in str(e):
+
+			messagebox.showwarning("Error", "There is no database created")
+
+		else:
+
+			messagebox.showwarning("Error", "Unknown error")	
 
 def delete():
 
-	connection=sqlite3.connect("CRUD")
-	slider=connection.cursor()
+	try:
+		connection=sqlite3.connect("CRUD")
+		slider=connection.cursor()
 
-	slider.execute("DELETE FROM USERSDATA WHERE ID=" + Id.get())
-	connection.commit()
-	delete_info=messagebox.askokcancel("Delete information", "Do you want to delete it?")
+		slider.execute("DELETE FROM USERSDATA WHERE ID=" + Id.get())
+		connection.commit()
+		delete_info=messagebox.askokcancel("Delete information", "Do you want to delete it?")
 
-	if delete_info==True:
+		if delete_info==True:
 
-		messagebox.showinfo("Delete information", "The information was succesfully deleted")
+			messagebox.showinfo("Delete information", "The information was succesfully deleted")
+	except sqlite3.OperationalError as e:
+		
+		if "incomplete input" in str(e):
+
+			messagebox.showwarning("Error", "There is no database created")
+
+		else:
+
+			messagebox.showwarning("Error", "Unknown error")				
+
+def question():
+
+	messagebox.showinfo("????", "Coming soon...")
 
 #--------------root----------------------------------------------#
 
@@ -136,7 +184,7 @@ bar_menu.add_cascade(label="CRUD", menu=menu_CRUD)
 
 menu_help=Menu(bar_menu, tearoff=0)
 menu_help.add_command(label="License")
-menu_help.add_command(label="????")
+menu_help.add_command(label="????", command=question)
 bar_menu.add_cascade(label="Help", menu=menu_help)
 
 #-------frame------------------------------------------------------#
