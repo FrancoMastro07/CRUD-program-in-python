@@ -136,6 +136,7 @@ def delete():
 		if delete_info==True:
 
 			messagebox.showinfo("Delete information", "The information was succesfully deleted")
+
 	except sqlite3.OperationalError as e:
 		
 		if "incomplete input" in str(e):
@@ -145,6 +146,10 @@ def delete():
 		else:
 
 			messagebox.showwarning("Error", "Unknown error")				
+
+def license():
+
+	messagebox.showinfo("License", "Open license")
 
 def question():
 
@@ -157,7 +162,6 @@ root=Tk()
 #--------interface-----------------------------------------------#
 
 root.title("CRUD")
-root.resizable(0,0)
 root.iconbitmap("database.ico")
 root.geometry("300x600")
 
@@ -183,13 +187,13 @@ menu_CRUD.add_command(label="Delete", command=delete)
 bar_menu.add_cascade(label="CRUD", menu=menu_CRUD)
 
 menu_help=Menu(bar_menu, tearoff=0)
-menu_help.add_command(label="License")
+menu_help.add_command(label="License", command=license)
 menu_help.add_command(label="????", command=question)
 bar_menu.add_cascade(label="Help", menu=menu_help)
 
 #-------frame------------------------------------------------------#
 
-myframe=Frame(root, width=1200, height=600)
+myframe=Frame(root)
 myframe.pack()
 myframe.config()
 
