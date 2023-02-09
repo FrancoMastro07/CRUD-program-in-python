@@ -139,6 +139,46 @@ def multi(num):
 
 	reset_screen=True	
 
+clicker_div=0
+
+def div(num):
+
+	global result
+
+	global operation
+
+	global reset_screen
+
+	global num1
+
+	global clicker_div
+
+	if clicker_div==0:
+
+		num1=float(num)
+
+		result=num1
+
+	else:
+
+		if clicker_div==1:
+
+			result=num1/float(num)
+
+		else:
+
+			result=float(result)/float(num)
+
+		ScreenNumber.set(result)
+		
+		result=ScreenNumber.get()
+
+	clicker_div+=1
+	
+	operation="div"
+
+	reset_screen=True		
+
 def results():
 
 	global result
@@ -147,7 +187,7 @@ def results():
 
 	if "suma" in operation:
 
-		ScreenNumber.set(result+int(ScreenNumber.get()))
+		ScreenNumber.set(int(result)+int(ScreenNumber.get()))
 
 		result=0
 
@@ -166,6 +206,14 @@ def results():
 		result=0
 
 		clicker_multi=0
+
+	elif "div" in operation:
+
+		ScreenNumber.set(int(result)/int(ScreenNumber.get()))
+
+		result=0
+
+		clicker_div=0
 
 
 	
@@ -213,7 +261,7 @@ button_delete.grid(row=4, column=4, padx=10, pady=10)
 button_rest=Button(frame, text="-", width=3, command=lambda:rest(ScreenNumber.get()))
 button_rest.grid(row=2, column=5, padx=10, pady=10)
 
-button_div=Button(frame, text="/", width=3, command=lambda:Clicked_Num("/"))
+button_div=Button(frame, text="/", width=3, command=lambda:div(ScreenNumber.get()))
 button_div.grid(row=3, column=5, padx=10, pady=10)
 
 button_equal=Button(frame, text="=", width=3, command=lambda:results())
