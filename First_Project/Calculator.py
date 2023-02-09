@@ -23,14 +23,17 @@ entry_number.config(background="black", fg="#03f943", justify="right")
 
 reset_screen=False
 
+operation=""
+
+result=0
 
 def Clicked_Num(num):
 
 	global reset_screen
 
-	if reset_screen==True:
+	if reset_screen!=False:
 
-		return ScreenNumber.set(num)
+		ScreenNumber.set(num)
 
 		reset_screen=False
 
@@ -38,6 +41,32 @@ def Clicked_Num(num):
 
 		return ScreenNumber.set(ScreenNumber.get()+num)
 
+def sum(num):
+
+	global operation
+
+	global result
+
+	global reset_screen
+
+	result+=int(num)
+
+	operation="suma"
+
+	reset_screen=True
+
+	ScreenNumber.set(result)
+
+def results():
+
+	global result
+
+	ScreenNumber.set(result+int(ScreenNumber.get()))
+
+	result=0
+
+
+	
 #----------------buttons--------------------------------------------------------
 
 button_7=Button(frame, text="7", width=3, command=lambda:Clicked_Num("7"))
@@ -70,7 +99,7 @@ button_3.grid(row=4, column=3, padx=10, pady=10)
 button_0=Button(frame, text="0", width=3, command=lambda:Clicked_Num("0"))
 button_0.grid(row=5, column=2, padx=10, pady=10)
 
-button_sum=Button(frame, text="+", width=3, command=lambda:Clicked_Num("+"))
+button_sum=Button(frame, text="+", width=3, command=lambda:sum(ScreenNumber.get()))
 button_sum.grid(row=2, column=4, padx=10, pady=10)
 
 button_x=Button(frame, text="x", width=3, command=lambda:Clicked_Num("x"))
@@ -85,7 +114,7 @@ button_rest.grid(row=2, column=5, padx=10, pady=10)
 button_div=Button(frame, text="/", width=3, command=lambda:Clicked_Num("/"))
 button_div.grid(row=3, column=5, padx=10, pady=10)
 
-button_equal=Button(frame, text="=", width=3, command=lambda:Clicked_Num("="))
+button_equal=Button(frame, text="=", width=3, command=lambda:results())
 button_equal.grid(row=4, column=5, padx=10, pady=10)
 
 #--------------------------end---------------------------------------------
