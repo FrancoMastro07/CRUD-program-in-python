@@ -97,6 +97,46 @@ def rest(num):
 
 	operation="rest"
 
+	reset_screen=True
+
+clicker_multi=0
+
+def multi(num):
+
+	global result
+
+	global operation
+
+	global reset_screen
+
+	global num1
+
+	global clicker_multi
+
+	if clicker_multi==0:
+
+		num1=int(num)
+
+		result=num1
+
+	else:
+	
+		if clicker_multi==1:
+
+			result=num1*int(num)
+
+		else:
+
+			result=int(result)*int(num)
+
+		ScreenNumber.set(result)
+
+		result=ScreenNumber.get()
+
+	clicker_multi+=1
+
+	operation="multi"
+
 	reset_screen=True	
 
 def results():
@@ -118,6 +158,14 @@ def results():
 		result=0
 
 		clicker_rest=0
+
+	elif "multi" in operation:
+
+		ScreenNumber.set(int(result)*int(ScreenNumber.get()))
+
+		result=0
+
+		clicker_multi=0
 
 
 	
@@ -156,7 +204,7 @@ button_0.grid(row=5, column=2, padx=10, pady=10)
 button_sum=Button(frame, text="+", width=3, command=lambda:sum(ScreenNumber.get()))
 button_sum.grid(row=2, column=4, padx=10, pady=10)
 
-button_x=Button(frame, text="x", width=3, command=lambda:Clicked_Num("x"))
+button_x=Button(frame, text="x", width=3, command=lambda:multi(ScreenNumber.get()))
 button_x.grid(row=3, column=4, padx=10, pady=10)
 
 button_delete=Button(frame, text="Del", width=3, command=lambda:ScreenNumber.set(""))
