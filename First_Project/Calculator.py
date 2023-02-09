@@ -57,13 +57,67 @@ def sum(num):
 
 	ScreenNumber.set(result)
 
+num1=0
+
+clicker_rest=0
+
+def rest(num):
+
+	global operation
+
+	global result
+
+	global reset_screen
+
+	global num1
+
+	global clicker_rest
+
+	if clicker_rest==0:
+
+		num1=int(num)
+
+		result=num1
+
+	else:
+
+		if clicker_rest==1:
+
+			result=num1-int(num)
+
+		else:
+
+			result=int(result)-int(num)
+
+		ScreenNumber.set(result)
+		
+		result=ScreenNumber.get()
+
+	clicker_rest+=1
+
+	operation="rest"
+
+	reset_screen=True	
+
 def results():
 
 	global result
 
-	ScreenNumber.set(result+int(ScreenNumber.get()))
+	global operation
 
-	result=0
+	if "suma" in operation:
+
+		ScreenNumber.set(result+int(ScreenNumber.get()))
+
+		result=0
+
+	elif "rest" in operation:
+
+		ScreenNumber.set(int(result)-int(ScreenNumber.get()))
+
+		result=0
+
+		clicker_rest=0
 
 
 	
@@ -108,7 +162,7 @@ button_x.grid(row=3, column=4, padx=10, pady=10)
 button_delete=Button(frame, text="Del", width=3, command=lambda:ScreenNumber.set(""))
 button_delete.grid(row=4, column=4, padx=10, pady=10)
 
-button_rest=Button(frame, text="-", width=3, command=lambda:Clicked_Num("-"))
+button_rest=Button(frame, text="-", width=3, command=lambda:rest(ScreenNumber.get()))
 button_rest.grid(row=2, column=5, padx=10, pady=10)
 
 button_div=Button(frame, text="/", width=3, command=lambda:Clicked_Num("/"))
