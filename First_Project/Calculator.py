@@ -177,7 +177,17 @@ def div(num):
 	
 	operation="div"
 
-	reset_screen=True		
+	reset_screen=True
+
+def delete():
+
+	global result
+
+	global reset_screen
+
+	ScreenNumber.set("")
+
+	result=0		
 
 def results():
 
@@ -255,7 +265,7 @@ button_sum.grid(row=2, column=4, padx=10, pady=10)
 button_x=Button(frame, text="x", width=3, command=lambda:multi(ScreenNumber.get()))
 button_x.grid(row=3, column=4, padx=10, pady=10)
 
-button_delete=Button(frame, text="Del", width=3, command=lambda:ScreenNumber.set(""))
+button_delete=Button(frame, text="Del", width=3, command=lambda:delete())
 button_delete.grid(row=4, column=4, padx=10, pady=10)
 
 button_rest=Button(frame, text="-", width=3, command=lambda:rest(ScreenNumber.get()))

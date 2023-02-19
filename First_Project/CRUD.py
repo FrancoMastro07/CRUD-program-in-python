@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import sqlite3
+import subprocess
 
 #----------------------database-code----------------------------------------------#
 
@@ -151,9 +152,9 @@ def license():
 
 	messagebox.showinfo("License", "Open license")
 
-def question():
+def open_calculator():
 
-	messagebox.showinfo("????", "Coming soon...")
+	subprocess.Popen(["python", "Calculator.py"])
 
 #--------------root----------------------------------------------#
 
@@ -186,9 +187,12 @@ menu_CRUD.add_command(label="Update", command=update)
 menu_CRUD.add_command(label="Delete", command=delete)
 bar_menu.add_cascade(label="CRUD", menu=menu_CRUD)
 
+menu_tools=Menu(bar_menu, tearoff=0)
+menu_tools.add_command(label="calculator", command=open_calculator)
+bar_menu.add_cascade(label="Tools", menu=menu_tools)
+
 menu_help=Menu(bar_menu, tearoff=0)
 menu_help.add_command(label="License", command=license)
-menu_help.add_command(label="????", command=question)
 bar_menu.add_cascade(label="Help", menu=menu_help)
 
 #-------frame------------------------------------------------------#
