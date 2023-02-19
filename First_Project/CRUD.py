@@ -188,7 +188,7 @@ menu_CRUD.add_command(label="Delete", command=delete)
 bar_menu.add_cascade(label="CRUD", menu=menu_CRUD)
 
 menu_tools=Menu(bar_menu, tearoff=0)
-menu_tools.add_command(label="calculator", command=open_calculator)
+menu_tools.add_command(label="Calculator", command=open_calculator)
 bar_menu.add_cascade(label="Tools", menu=menu_tools)
 
 menu_help=Menu(bar_menu, tearoff=0)
