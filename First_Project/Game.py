@@ -8,8 +8,16 @@ BLACK=(0, 0, 0)
 #-------------first-vars----------------------#
 
 pygame.init()
-size=(800, 500)
+screen_width=800
+screen_height=500
+size=(screen_width, screen_height)
 screen=pygame.display.set_mode(size)
+pygame.display.set_caption("Game")
+
+player=pygame.image.load("bro.png").convert()
+player.set_colorkey(WHITE)
+
+pygame.display.set_icon(player)
 clock=pygame.time.Clock()
 pygame.mouse.set_visible(0)
 coord_list=[]
@@ -27,7 +35,6 @@ allow_input=True
 
 #-----------logic-----------------------------------------#
 
-player=pygame.image.load("bro.png").convert()
 cactus=pygame.image.load("cactus.png").convert()
 clouds=pygame.image.load("clouds.png").convert()
 cactus.set_colorkey(WHITE)
@@ -76,7 +83,6 @@ while True:
 
 		cactus_x=800
 
-
 #----------drawing-zone-------------------------------------#
 
 	screen.fill(WHITE)	
@@ -97,3 +103,5 @@ while True:
 	
 	pygame.display.flip()
 	clock.tick(15)
+
+pygame.quit()	

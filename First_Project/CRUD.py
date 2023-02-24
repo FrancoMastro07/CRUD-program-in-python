@@ -156,6 +156,10 @@ def open_calculator():
 
 	subprocess.Popen(["python", "Calculator.py"])
 
+def open_game():
+
+	subprocess.Popen(["python", "Game.py"])
+
 #--------------root----------------------------------------------#
 
 root=Tk()
@@ -189,6 +193,7 @@ bar_menu.add_cascade(label="CRUD", menu=menu_CRUD)
 
 menu_tools=Menu(bar_menu, tearoff=0)
 menu_tools.add_command(label="Calculator", command=open_calculator)
+menu_tools.add_command(label="Game", command=open_game)
 bar_menu.add_cascade(label="Tools", menu=menu_tools)
 
 menu_help=Menu(bar_menu, tearoff=0)
