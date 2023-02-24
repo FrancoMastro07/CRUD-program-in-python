@@ -1,0 +1,1 @@
+Hi, my name is Franco Ignacio Mastropasqua, i´m from Argentina. At this moment i´m studyng computer science. I have been coding for quiet a short time, this project was made by me just to practice. This is not something professional at all, i have made it in order to learn and improve my coding skills. 
