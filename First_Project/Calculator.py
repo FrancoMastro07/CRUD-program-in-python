@@ -79,6 +79,12 @@ def equal():
             elif operation==4:
                 for i in numbers_list:
                     math_op/=i
+            elif operation==5:                            
+                for i in numbers_list:
+                    math_op=math_op**i
+            elif operation==6:                            
+                for i in numbers_list:
+                    math_op=i**(1/math_op)
                     
             if math_op==-0:
                 math_op=0
@@ -99,6 +105,8 @@ def equal():
                 number.set(str(round(float(math_op), 22)))   
         except ZeroDivisionError:
             number.set("MATH error")
+        except ValueError:
+            number.set("")
     numbers_list.clear()
     operation=0
     
@@ -111,7 +119,7 @@ def delete():
     numbers_list.clear()
     math_op=0
     operation=0
-            
+    
 #------------------------buttons-------------------------------------------------
 
 button_0 = tk.Button(root, text="0", command=lambda: change("0"))
@@ -131,21 +139,18 @@ button_plus = tk.Button(root, text="+", command=lambda: operate(1))
 button_subt = tk.Button(root, text="-", command=lambda: operate(2))
 button_multi = tk.Button(root, text="*", command=lambda: operate(3))
 button_div = tk.Button(root, text="/", command=lambda: operate(4))
+button_exp = tk.Button(root, text="^", command=lambda: operate(5))
+button_base = tk.Button(root, text="√", command=lambda: operate(6))
 button_equal = tk.Button(root, text="=", command=equal)
 button_delete = tk.Button(root, text="DEL", command=delete)
-
-button_dis_1 = tk.Button(root, text="")
-button_dis_1.config(state="disabled")
-button_dis_2 = tk.Button(root, text="")
-button_dis_2.config(state="disabled")
 
 #------------------------------------button-grid-------------------------------------------------
 
 button_7.grid(row=1, column=0, padx=5, pady=5, sticky="NSEW")
 button_8.grid(row=1, column=1, padx=5, pady=5, sticky="NSEW")
 button_9.grid(row=1, column=2, padx=5, pady=5, sticky="NSEW")
-button_delete.grid(row=1, column=3, padx=5, pady=5, sticky="NSEW")
-button_dis_1.grid(row=1, column=4, padx=5, pady=5, sticky="NSEW")
+button_exp.grid(row=1, column=3, padx=5, pady=5, sticky="NSEW")
+button_base.grid(row=1, column=4, padx=5, pady=5, sticky="NSEW")
 
 button_4.grid(row=2, column=0, padx=5, pady=5, sticky="NSEW")
 button_5.grid(row=2, column=1, padx=5, pady=5, sticky="NSEW")
@@ -163,6 +168,6 @@ button_coma.grid(row=4, column=0, padx=5, pady=5, sticky="NSEW")
 button_0.grid(row=4, column=1, padx=5, pady=5, sticky="NSEW")
 button_subt_symbol.grid(row=4, column=2, padx=5, pady=5, sticky="NSEW")
 button_equal.grid(row=4, column=3, padx=5, pady=5, sticky="NSEW")
-button_dis_2.grid(row=4, column=4, padx=5, pady=5, sticky="NSEW")
+button_delete.grid(row=4, column=4, padx=5, pady=5, sticky="NSEW")
 
 root.mainloop()
